@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f4f8;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .case-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .case-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+        
+        .case-preview {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        #case-details {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .back-button {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .back-button:hover {
+            background-color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Social Services Case Files</h1>
+            <p>Click on a case to view details</p>
+        </div>
+        
+        <button id="backButton" class="back-button">← Back to Cases</button>
+        
+        <div id="case-grid" class="case-grid">
+            <div class="case-card" onclick="showCase(1)">
+                <div class="case-title">Case 1: Single Mother in Need of Assistance</div>
+                <div class="case-preview">Maria Rodriguez, 28-year-old single mother of two</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(2)">
+                <div class="case-title">Case 2: Unemployed Veteran Facing Homelessness</div>
+                <div class="case-preview">James Carter, 45-year-old Navy veteran</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(3)">
+                <div class="case-title">Case 3: Elderly Woman on Fixed Income</div>
+                <div class="case-preview">Dorothy Simmons, 72-year-old retired widow</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(4)">
+                <div class="case-title">Case 4: Teen Aging Out of Foster Care</div>
+                <div class="case-preview">Jordan Taylor, 18-year-old former foster youth</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(5)">
+                <div class="case-title">Case 5: Low-Wage Worker with a Disability</div>
+                <div class="case-preview">Kevin Johnson, 38-year-old with multiple sclerosis</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(6)">
+                <div class="case-title">Case 6: Pregnant Woman Without Health Insurance</div>
+                <div class="case-preview">Ashley Nguyen, 24-year-old expecting mother</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(7)">
+                <div class="case-title">Case 7: Recently Laid-Off Worker</div>
+                <div class="case-preview">Chris Anderson, 42-year-old construction worker</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(8)">
+                <div class="case-title">Case 8: Undocumented Immigrant with Sick Child</div>
+                <div class="case-preview">Juan & Rosa Castillo, parents of U.S.-born child</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(9)">
+                <div class="case-title">Case 9: College Student Struggling with Food and Rent</div>
+                <div class="case-preview">Mia Patel, 20-year-old full-time student</div>
+            </div>
+            
+            <div class="case-card" onclick="showCase(10)">
+                <div class="case-title">Case 10: Rural Family with No Access to Healthcare</div>
+                <div class="case-preview">The Jefferson Family, family of four in rural Alabama</div>
+            </div>
+        </div>
+        
+        <div id="case-details"></div>
+    </div>
+
+    <script>
+        const cases = {
+            1: {
+                title: "Case 1: Single Mother in Need of Assistance",
+                name: "Maria Rodriguez",
+                profile: "28-year-old single mother with two kids (ages 4 and 7). Works part-time (20 hours/week) earning $1,200/month. Struggles with food insecurity, childcare costs, and rent.",
+                needs: ["Food assistance", "Housing support", "Childcare assistance", "Healthcare"],
+                programs: [
+                    "SNAP (Supplemental Nutrition Assistance Program) – Food assistance",
+                    "WIC (Women, Infants, and Children Program) – Nutrition support for young children",
+                    "Section 8 Housing Voucher – Rent assistance",
+                    "CCDF (Child Care and Development Fund) – Childcare subsidy",
+                    "Medicaid/CHIP – Health coverage for low-income families"
+                ],
+                challenge: "She earns just above the Medicaid income limit in her state. What other healthcare options does she have?"
+            },
+            2: {
+                title: "Case 2: Unemployed Veteran Facing Homelessness",
+                name: "James Carter",
+                profile: "45-year-old Navy veteran, recently lost his job. Suffers from PTSD and chronic back pain. Has no income and is homeless.",
+                needs: ["Housing", "Job training", "Mental health care"],
+                programs: [
+                    "HUD-VASH (Veterans Affairs Supportive Housing) – Housing vouchers for veterans",
+                    "VA Disability Compensation – Monthly payments for service-related disabilities",
+                    "SNAP & Food Pantries – Food assistance",
+                    "Vocational Rehabilitation & Employment (VR&E) – Job training for disabled veterans"
+                ],
+                challenge: "He is on a waitlist for HUD-VASH. What emergency housing options exist?"
+            },
+            3: {
+                title: "Case 3: Elderly Woman on Fixed Income",
+                name: "Dorothy Simmons",
+                profile: "72-year-old retired widow, receives $1,200/month from Social Security. Struggles with prescription costs, rent, and utilities.",
+                needs: ["Prescription drug coverage", "Affordable housing", "Utility assistance"],
+                programs: [
+                    "Medicare (Part D – Prescription Coverage) – Helps cover medication costs",
+                    "Supplemental Security Income (SSI) – Extra income for low-income seniors",
+                    "LIHEAP (Low Income Home Energy Assistance Program) – Helps with heating/cooling bills",
+                    "Section 202 Supportive Housing for the Elderly – Affordable housing for seniors"
+                ],
+                challenge: "Medicare doesn't cover dental or vision care. What options does she have?"
+            },
+            4: {
+                title: "Case 4: Teen Aging Out of Foster Care",
+                name: "Jordan Taylor",
+                profile: "18-year-old aging out of foster care. No family support, no job, no stable housing. Wants to attend college.",
+                needs: ["Housing", "Financial support for education", "Healthcare"],
+                programs: [
+                    "Foster Youth to Independence (FYI) Housing Vouchers – Helps former foster youth with housing",
+                    "Chafee Education and Training Voucher (ETV) – Provides up to $5,000/year for college",
+                    "Medicaid (Aging Out Youth Provision) – Former foster youth qualify for Medicaid until age 26"
+                ],
+                challenge: "Jordan needs to apply for housing before turning 21 or loses eligibility."
+            },
+            5: {
+                title: "Case 5: Low-Wage Worker with a Disability",
+                name: "Kevin Johnson",
+                profile: "38-year-old single man, recently diagnosed with multiple sclerosis. Works 25 hours/week earning $1,400/month.",
+                needs: ["Disability benefits", "Job accommodations", "Medical coverage"],
+                programs: [
+                    "SSDI (Social Security Disability Insurance) – For workers with disabilities",
+                    "Medicaid (if income-eligible) or Medicare after 2 years on SSDI",
+                    "Ticket to Work Program – Helps disabled individuals keep working with support"
+                ],
+                challenge: "His employer won't provide accommodations. What can he do?"
+            },
+            6: {
+                title: "Case 6: Pregnant Woman Without Health Insurance",
+                name: "Ashley Nguyen",
+                profile: "24-year-old, 5 months pregnant, working a part-time job without benefits. No health insurance.",
+                needs: ["Prenatal care", "Health insurance", "Nutrition assistance"],
+                programs: [
+                    "Medicaid (Pregnancy Coverage) – Most states cover pregnant women",
+                    "WIC (Women, Infants, and Children) – Food assistance for pregnant women",
+                    "TANF (Temporary Assistance for Needy Families) – Financial assistance for low-income families"
+                ],
+                challenge: "If her state didn't expand Medicaid, what options does she have?"
+            },
+            7: {
+                title: "Case 7: Recently Laid-Off Worker",
+                name: "Chris Anderson",
+                profile: "42-year-old construction worker, recently laid off. Has $300 in savings and no income.",
+                needs: ["Unemployment benefits", "Job training", "Health coverage"],
+                programs: [
+                    "Unemployment Insurance (UI) – Provides temporary financial support",
+                    "COBRA or Medicaid (for health insurance coverage)",
+                    "Workforce Innovation and Opportunity Act (WIOA) Programs – Job training"
+                ],
+                challenge: "His UI benefits will run out in 26 weeks. What's next?"
+            },
+            8: {
+                title: "Case 8: Undocumented Immigrant with Sick Child",
+                name: "Juan & Rosa Castillo",
+                profile: "Parents with a 5-year-old who was born in the U.S. Their child has a chronic illness, but they fear applying for benefits.",
+                needs: ["Healthcare for their child", "Food assistance"],
+                programs: [
+                    "CHIP (Children's Health Insurance Program) – Covers their U.S.-born child",
+                    "SNAP (if state allows mixed-status families)"
+                ],
+                challenge: "Many undocumented families fear applying for benefits. What policies protect them?"
+            },
+            9: {
+                title: "Case 9: College Student Struggling with Food and Rent",
+                name: "Mia Patel",
+                profile: "20-year-old full-time college student, working a minimum wage job. Struggles with rent, food, and tuition costs.",
+                needs: ["Food", "Affordable housing", "Financial aid"],
+                programs: [
+                    "SNAP (if working 20+ hours/week or meeting work-study criteria)",
+                    "Pell Grants & Federal Work-Study",
+                    "Section 8 (if not living in college dorms)"
+                ],
+                challenge: "College students have stricter SNAP rules. What's the solution?"
+            },
+            10: {
+                title: "Case 10: Rural Family with No Access to Healthcare",
+                name: "The Jefferson Family",
+                profile: "Family of four living in rural Alabama. The father works a low-wage job without benefits. No health insurance.",
+                needs: ["Healthcare", "Transportation", "Food assistance"],
+                programs: [
+                    "Medicaid (if income-eligible)",
+                    "CHIP (for children)",
+                    "SNAP (food assistance)",
+                    "Federally Qualified Health Centers (FQHCs) – Free/sliding-scale healthcare"
+                ],
+                challenge: "No local Medicaid providers. What can they do?"
+            }
+        };
+
+        function showCase(caseNumber) {
+            const caseData = cases[caseNumber];
+            const detailsDiv = document.getElementById('case-details');
+            const gridDiv = document.getElementById('case-grid');
+            const backButton = document.getElementById('backButton');
+            
+            if (caseData) {
+                detailsDiv.innerHTML = `
+                    <h2>${caseData.title}</h2>
+                    <h3>🔍 Name: ${caseData.name}</h3>
+                    <p><strong>👤 Profile:</strong> ${caseData.profile}</p>
+                    <p><strong>📌 Needs:</strong> ${caseData.needs.join(', ')}</p>
+                    <h4>📜 Relevant Programs:</h4>
+                    <ul>
+                        ${caseData.programs.map(program => `<li>${program}</li>`).join('')}
+                    </ul>
+                    <p><strong>💡 Challenge:</strong> ${caseData.challenge}</p>
+                `;
+                
+                gridDiv.style.display = 'none';
+                detailsDiv.style.display = 'block';
+                backButton.style.display = 'block';
+            }
+        }
+
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('case-grid').style.display = 'grid';
+            document.getElementById('case-details').style.display = 'none';
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
